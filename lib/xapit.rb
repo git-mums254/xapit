@@ -65,9 +65,9 @@ module Xapit
       elsif value.to_s =~ /^\d{4}-\d{2}-\d{2}/
         Xapian.sortable_serialise(Time.parse(value.to_s).to_i)
       elsif value.kind_of?(Numeric) || value.to_s =~ /^\d+$/
-        Xapian.sortable_serialise(value.to_f)
+        Xapian.sortable_serialise(value.to_f).force_encoding(__ENCODING__)
       else
-        value.to_s.downcase
+        value.to_s.downcase.force_encoding(__ENCODING__)
       end
     rescue ArgumentError # in case Time.parse errors out
       value.to_s.downcase
